@@ -789,6 +789,31 @@ document.addEventListener(
     function() {
 
         updateCartCount();
+        loadMyOrders();
+        loadAdminDashboard();
+        loadAdminOrders();
+
+        // Check admin login state
+        const isAdminLoggedIn =
+            localStorage.getItem(
+                "smartCanteenAdminLoggedIn"
+            ) === "true";
+
+        const dashboard =
+            document.getElementById("admin-dashboard");
+
+        if (dashboard) {
+
+            if (isAdminLoggedIn) {
+
+                dashboard.style.display = "block";
+
+            } else {
+
+                dashboard.style.display = "none";
+
+            }
+        }
 
         console.log(
             "SmartCanteen loaded successfully!"
@@ -854,6 +879,37 @@ function placeOrder() {
         Date.now()
             .toString()
             .slice(-6);
+
+    // =====================================================
+// SAVE ORDER
+// =====================================================
+
+const newOrder = {
+    orderId: orderId,
+    name: name,
+    collegeId: collegeId,
+    items: cart.map(item => ({
+        name: item.name,
+        price: item.price,
+        quantity: item.quantity
+    })),
+    pickupSlot: selectedPickupSlot,
+    total: total,
+    status: "Pending",
+    orderTime: new Date().toLocaleString()
+};
+
+let orders =
+    JSON.parse(
+        localStorage.getItem("smartCanteenOrders")
+    ) || [];
+
+orders.push(newOrder);
+
+localStorage.setItem(
+    "smartCanteenOrders",
+    JSON.stringify(orders)
+);
 
 
     // Close checkout
@@ -923,4 +979,436 @@ function closeConfirmation() {
 
     }
 
+}
+
+// =====================================================
+// ORDER STATUS CLASS
+// =====================================================
+
+function getStatusClass(status, step) {
+
+    const statusSteps = {
+        "Pending": 1,
+        "Preparing": 2,
+        "Ready": 3,
+        "Collected": 4
+    };
+
+    const currentStep = statusSteps[status] || 1;
+
+    return step <= currentStep ? "active" : "";
+}
+// =====================================================
+// MY ORDERS
+// =====================================================
+
+function loadMyOrders() {
+
+    const ordersContainer =
+        document.getElementById("ordersContainer");
+
+    if (!ordersContainer) return;
+
+    const orders =
+        JSON.parse(
+            localStorage.getItem("smartCanteenOrders")
+        ) || [];
+
+    // No orders
+    if (orders.length === 0) {
+
+        ordersContainer.innerHTML = `
+            <div class="no-orders">
+                <h3>No orders yet 🍽️</h3>
+                <p>Your placed orders will appear here.</p>
+            </div>
+        `;
+
+        return;
+    }
+
+    // Display orders
+    ordersContainer.innerHTML =
+        orders.map(order => `
+
+            <div class="order-card">
+
+                <div class="order-header">
+                    <div>
+                        <span>Order ID</span>
+                        <h3>${order.orderId}</h3>
+                    </div>
+
+                    <div class="order-status">
+
+    <div class="status-step ${getStatusClass(order.status, 1)}">
+        <span>1</span>
+        <small>Pending</small>
+    </div>
+
+    <div class="status-line"></div>
+
+    <div class="status-step ${getStatusClass(order.status, 2)}">
+        <span>2</span>
+        <small>Preparing</small>
+    </div>
+
+    <div class="status-line"></div>
+
+    <div class="status-step ${getStatusClass(order.status, 3)}">
+        <span>3</span>
+        <small>Ready</small>
+    </div>
+
+    <div class="status-line"></div>
+
+    <div class="status-step ${getStatusClass(order.status, 4)}">
+        <span>4</span>
+        <small>Collected</small>
+    </div>
+
+</div>
+
+                <div class="order-details">
+
+                    <p>
+                        <strong>Pickup:</strong>
+                        ${order.pickupSlot}
+                    </p>
+
+                    <p>
+                        <strong>Total:</strong>
+                        ₹${order.total}
+                    </p>
+
+                    <p>
+                        <strong>Ordered:</strong>
+                        ${order.orderTime}
+                    </p>
+
+                </div>
+
+                <div class="order-items">
+
+                    ${order.items.map(item => `
+                        <div class="order-item">
+                            <span>
+                                ${item.name} × ${item.quantity}
+                            </span>
+
+                            <span>
+                                ₹${item.price * item.quantity}
+                            </span>
+                        </div>
+                    `).join("")}
+
+                </div>
+
+            </div>
+
+        `).join("");
+        
+
+}
+// =====================================================
+// ADMIN DASHBOARD STATS
+// =====================================================
+
+function loadAdminDashboard() {
+
+    const orders =
+        JSON.parse(
+            localStorage.getItem("smartCanteenOrders")
+        ) || [];
+
+    const totalOrders =
+        document.getElementById("totalOrders");
+
+    if (totalOrders) {
+        totalOrders.innerText = orders.length;
+    }
+
+    const pendingOrders =
+        orders.filter(
+            order => order.status === "Pending"
+        ).length;
+
+    const pendingElement =
+        document.getElementById("pendingOrders");
+
+    if (pendingElement) {
+        pendingElement.innerText = pendingOrders;
+    }
+
+    const preparingOrders =
+        orders.filter(
+            order => order.status === "Preparing"
+        ).length;
+
+    const preparingElement =
+        document.getElementById("preparingOrders");
+
+    if (preparingElement) {
+        preparingElement.innerText = preparingOrders;
+    }
+
+    const revenue =
+        orders.reduce(
+            (sum, order) =>
+                sum + Number(order.total),
+            0
+        );
+
+    const revenueElement =
+        document.getElementById("totalRevenue");
+
+    if (revenueElement) {
+        revenueElement.innerText = `₹${revenue}`;
+    }
+}
+// =====================================================
+// ADMIN INCOMING ORDERS
+// =====================================================
+
+function loadAdminOrders() {
+
+    const container =
+        document.getElementById("adminOrdersContainer");
+
+    if (!container) return;
+
+    const orders =
+        JSON.parse(
+            localStorage.getItem("smartCanteenOrders")
+        ) || [];
+
+    if (orders.length === 0) {
+
+        container.innerHTML = `
+            <div class="no-orders">
+                <h3>No orders yet 🍽️</h3>
+                <p>Student orders will appear here.</p>
+            </div>
+        `;
+
+        return;
+    }
+
+    container.innerHTML = orders.map(order => `
+
+        <div class="admin-order-card">
+
+            <div class="admin-order-top">
+
+                <div>
+                    <span class="admin-order-label">
+                        Order ID
+                    </span>
+
+                    <h3>${order.orderId}</h3>
+                </div>
+
+                <span class="admin-order-status">
+                    ${order.status}
+                </span>
+
+            </div>
+
+            <div class="admin-order-info">
+
+                <p>
+                    <strong>Student:</strong>
+                    ${order.name}
+                </p>
+
+                <p>
+                    <strong>College ID:</strong>
+                    ${order.collegeId}
+                </p>
+
+                <p>
+                    <strong>Pickup:</strong>
+                    ${order.pickupSlot}
+                </p>
+
+                <p>
+                    <strong>Total:</strong>
+                    ₹${order.total}
+                </p>
+
+            </div>
+
+            <div class="admin-order-items">
+
+                ${order.items.map(item => `
+                    <div class="admin-item">
+                        <span>
+                            ${item.name} × ${item.quantity}
+                        </span>
+
+                        <span>
+                            ₹${item.price * item.quantity}
+                        </span>
+                    </div>
+                `).join("")}
+
+            </div>
+
+            <div class="admin-order-actions">
+
+                <button onclick="updateOrderStatus('${order.orderId}', 'Preparing')">
+                    🍳 Preparing
+                </button>
+
+                <button onclick="updateOrderStatus('${order.orderId}', 'Ready')">
+                    ✅ Ready
+                </button>
+
+                <button onclick="updateOrderStatus('${order.orderId}', 'Collected')">
+                    📦 Collected
+                </button>
+
+            </div>
+
+        </div>
+
+    `).join("");
+}
+// =====================================================
+// UPDATE ORDER STATUS
+// =====================================================
+
+function updateOrderStatus(orderId, newStatus) {
+
+    let orders =
+        JSON.parse(
+            localStorage.getItem("smartCanteenOrders")
+        ) || [];
+
+    const order =
+        orders.find(
+            order => order.orderId === orderId
+        );
+
+    if (!order) return;
+
+    order.status = newStatus;
+
+    localStorage.setItem(
+        "smartCanteenOrders",
+        JSON.stringify(orders)
+    );
+
+    // Refresh admin dashboard
+    loadAdminDashboard();
+    loadAdminOrders();
+
+    // Refresh student orders
+    loadMyOrders();
+
+    showToast(
+        `Order ${orderId} is now ${newStatus} ✓`
+    );
+}
+// =====================================================
+// ADMIN LOGIN
+// =====================================================
+
+function openAdminLogin() {
+
+    const modal =
+        document.getElementById("adminLoginModal");
+
+    if (modal) {
+        modal.classList.add("active");
+    }
+}
+
+
+function closeAdminLogin() {
+
+    const modal =
+        document.getElementById("adminLoginModal");
+
+    if (modal) {
+        modal.classList.remove("active");
+    }
+}
+
+
+function adminLogin() {
+
+    const email =
+        document.getElementById("adminEmail").value.trim();
+
+    const password =
+        document.getElementById("adminPassword").value.trim();
+
+
+    const adminEmail =
+        "admin@smartcanteen.com";
+
+    const adminPassword =
+        "admin123";
+
+
+    if (
+    email === adminEmail &&
+    password === adminPassword
+) {
+
+    // Save admin login state
+    localStorage.setItem(
+        "smartCanteenAdminLoggedIn",
+        "true"
+    );
+
+    closeAdminLogin();
+
+    const dashboard =
+        document.getElementById("admin-dashboard");
+
+    if (dashboard) {
+
+        dashboard.style.display = "block";
+
+        dashboard.scrollIntoView({
+            behavior: "smooth"
+        });
+    }
+
+    showToast("Admin login successful ✓");
+    }
+} 
+    
+    
+
+
+
+// =====================================================
+// ADMIN LOGOUT
+// =====================================================
+
+function adminLogout() {
+
+    // Remove admin login state
+    localStorage.removeItem(
+        "smartCanteenAdminLoggedIn"
+    );
+
+    // Hide admin dashboard
+    const dashboard =
+        document.getElementById("admin-dashboard");
+
+    if (dashboard) {
+        dashboard.style.display = "none";
+    }
+
+    // Go back to top
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+    showToast("Admin logged out ✓");
 }
