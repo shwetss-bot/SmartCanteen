@@ -2902,3 +2902,9 @@ footer {
 #adminLoginModal.active {
     display: flex;
 }
+/* Keep Login and Admin buttons visible on mobile */
+@media (max-width: 480px) {
+    .nav-actions .login-btn {
+        display: inline-block;
+    }
+}
