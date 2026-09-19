@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SmartCanteen | Skip the Queue</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            <div class="logo-icon">S</div>
+            <span>Smart<span>Canteen</span></span>
+        </div>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#menu">Menu</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#about">About</a>
+        </nav>
+
+        <div class="nav-actions">
+
+            <button
+                class="login-btn"
+                onclick="openLogin()">
+                Login
+            </button>
+
+            <button
+                class="primary-btn"
+                onclick="goToMenu()">
+                Order Now
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= HERO ================= -->
+
+    <main>
+
+        <section
+            class="hero"
+            id="home">
+
+            <div class="hero-content">
+
+                <div class="hero-badge">
+                    🍽️ SMART COLLEGE CANTEEN
+                </div>
+
+                <h1>
+                    Skip the queue.
+                    <span>Enjoy your meal.</span>
+                </h1>
+
+                <p class="hero-text">
+
+                    Pre-order your favourite food,
+                    pay in advance and pick it up
+                    during your lunch break — without
+                    waiting in long queues.
+
+                </p>
+
+                <div class="hero-buttons">
+
+                    <button
+                        class="primary-btn hero-btn"
+                        onclick="goToMenu()">
+
+                        Order Your Food →
+
+                    </button>
+
+                    <button
+                        class="secondary-btn hero-btn"
+                        onclick="document.getElementById('how-it-works').scrollIntoView({behavior:'smooth'})">
+
+                        How It Works
+
+                    </button>
+
+                </div>
+
+                <div class="hero-stats">
+
+                    <div>
+                        <strong>Fast</strong>
+                        <span>Pickup</span>
+                    </div>
+
+                    <div>
+                        <strong>Easy</strong>
+                        <span>Ordering</span>
+                    </div>
+
+                    <div>
+                        <strong>Smart</strong>
+                        <span>Management</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- FOOD VISUAL -->
+
+            <div class="hero-visual">
+
+                <div class="food-card main-food-card">
+
+                    <div class="food-image">
+                        🍛
+                    </div>
+
+                    <div class="food-info">
+
+                        <div>
+                            <small>
+                                TODAY'S SPECIAL
+                            </small>
+
+                            <h3>
+                                Veg Thali
+                            </h3>
+                        </div>
+
+                        <strong>
+                            ₹60
+                        </strong>
+
+                    </div>
+
+                    <button
+                        class="food-order-btn"
+                        onclick="goToMenu()">
+
+                        Order Now
+
+                    </button>
+
+                </div>
+
+
+                <div class="floating-card order-card">
+
+                    <div class="floating-icon">
+                        ✓
+                    </div>
+
+                    <div>
+                        <strong>
+                            Order Ready
+                        </strong>
+
+                        <small>
+                            Pickup at 1:00 PM
+                        </small>
+                    </div>
+
+                </div>
+
+
+                <div class="floating-card time-card">
+
+                    <span>⚡</span>
+
+                    <div>
+                        <strong>
+                            Less Waiting
+                        </strong>
+
+                        <small>
+                            Pre-order before lunch
+                        </small>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= MENU PREVIEW ================= -->
+
+        <section
+            class="section menu-section"
+            id="menu">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <div class="section-label">
+                        TODAY'S MENU
+                    </div>
+
+                    <h2>
+                        What are you craving?
+                    </h2>
+
+                    <p>
+                        Choose your favourite meal and
+                        place your order before the rush.
+                    </p>
+
+                </div>
+
+                <button
+                    class="view-menu-btn"
+                    onclick="viewFullMenu()">
+
+                    View Full Menu →
+
+                </button>
+
+            </div>
+
+
+            <div class="menu-grid">
+
+
+                <!-- FOOD CARD 1 -->
+
+                <div class="menu-card">
+
+                    <div class="menu-food-image">
+                        🍛
+                    </div>
+
+                    <div class="menu-card-content">
+
+                        <div class="food-category">
+                            MEAL
+                        </div>
+
+                        <h3>
+                            Veg Thali
+                        </h3>
+
+                        <p>
+                            Complete vegetarian meal
+                            with dal, sabzi, roti and rice.
+                        </p>
+
+                        <div class="menu-bottom">
+
+                            <strong>
+                                ₹60
+                            </strong>
+
+                            <button
+                                onclick="addToCart('Veg Thali', 60)">
+
+                                + Add
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- FOOD CARD 2 -->
+
+                <div class="menu-card">
+
+                    <div class="menu-food-image noodles">
+                        🍜
+                    </div>
+
+                    <div class="menu-card-content">
+
+                        <div class="food-category">
+                            QUICK BITE
+                        </div>
+
+                        <h3>
+                            Veg Noodles
+                        </h3>
+
+                        <p>
+                            Freshly prepared noodles
+                            with vegetables.
+                        </p>
+
+                        <div class="menu-bottom">
+
+                            <strong>
+                                ₹50
+                            </strong>
+
+                            <button
+                                onclick="addToCart('Veg Noodles', 50)">
+
+                                + Add
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- FOOD CARD 3 -->
+
+                <div class="menu-card">
+
+                    <div class="menu-food-image burger">
+                        🍔
+                    </div>
+
+                    <div class="menu-card-content">
+
+                        <div class="food-category">
+                            SNACK
+                        </div>
+
+                        <h3>
+                            Veg Burger
+                        </h3>
+
+                        <p>
+                            Crispy patty with fresh
+                            vegetables and sauces.
+                        </p>
+
+                        <div class="menu-bottom">
+
+                            <strong>
+                                ₹70
+                            </strong>
+
+                            <button
+                                onclick="addToCart('Veg Burger', 70)">
+
+                                + Add
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- FOOD CARD 4 -->
+
+                <div class="menu-card">
+
+                    <div class="menu-food-image sandwich">
+                        🥪
+                    </div>
+
+                    <div class="menu-card-content">
+
+                        <div class="food-category">
+                            SNACK
+                        </div>
+
+                        <h3>
+                            Grilled Sandwich
+                        </h3>
+
+                        <p>
+                            Toasted sandwich filled
+                            with vegetables and cheese.
+                        </p>
+
+                        <div class="menu-bottom">
+
+                            <strong>
+                                ₹55
+                            </strong>
+
+                            <button
+                                onclick="addToCart('Grilled Sandwich', 55)">
+
+                                + Add
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= HOW IT WORKS ================= -->
+
+        <section
+            class="section how-section"
+            id="how-it-works">
+
+            <div class="center-heading">
+
+                <div class="section-label">
+                    HOW IT WORKS
+                </div>
+
+                <h2>
+                    Your lunch, without the wait.
+                </h2>
+
+                <p>
+                    Three simple steps to make your
+                    college canteen experience faster.
+                </p>
+
+            </div>
+
+
+            <div class="steps">
+
+
+                <div class="step-card">
+
+                    <div class="step-number">
+                        01
+                    </div>
+
+                    <div class="step-icon">
+                        🍽️
+                    </div>
+
+                    <h3>
+                        Choose your food
+                    </h3>
+
+                    <p>
+                        Browse today's menu and
+                        select what you want to eat.
+                    </p>
+
+                </div>
+
+
+                <div class="step-card">
+
+                    <div class="step-number">
+                        02
+                    </div>
+
+                    <div class="step-icon">
+                        💳
+                    </div>
+
+                    <h3>
+                        Pre-order & pay
+                    </h3>
+
+                    <p>
+                        Place your order before lunch
+                        and complete your payment.
+                    </p>
+
+                </div>
+
+
+                <div class="step-card">
+
+                    <div class="step-number">
+                        03
+                    </div>
+
+                    <div class="step-icon">
+                        🎟️
+                    </div>
+
+                    <h3>
+                        Pick up your order
+                    </h3>
+
+                    <p>
+                        Show your order ID or QR and
+                        collect your prepared meal.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= SMART CANTEEN ================= -->
+
+        <section
+            class="section smart-section"
+            id="about">
+
+            <div class="smart-content">
+
+                <div class="section-label">
+                    FOR THE CANTEEN
+                </div>
+
+                <h2>
+                    Not just food ordering.
+                    It's smart management.
+                </h2>
+
+                <p>
+                    SmartCanteen helps canteen
+                    operators understand demand
+                    before the lunch rush begins.
+                </p>
+
+
+                <div class="smart-features">
+
+                    <div>
+                        <span>✓</span>
+                        Know pre-orders in advance
+                    </div>
+
+                    <div>
+                        <span>✓</span>
+                        Prepare according to demand
+                    </div>
+
+                    <div>
+                        <span>✓</span>
+                        Reduce waiting time
+                    </div>
+
+                    <div>
+                        <span>✓</span>
+                        Reduce unnecessary food waste
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-preview">
+
+                <div class="dashboard-top">
+
+                    <div>
+                        <small>
+                            TODAY
+                        </small>
+
+                        <h3>
+                            Canteen Overview
+                        </h3>
+                    </div>
+
+                    <span class="live-status">
+                        ● LIVE
+                    </span>
+
+                </div>
+
+
+                <div class="dashboard-stats">
+
+                    <div>
+                        <strong>
+                            184
+                        </strong>
+
+                        <span>
+                            Orders
+                        </span>
+                    </div>
+
+                    <div>
+                        <strong>
+                            63
+                        </strong>
+
+                        <span>
+                            Pending
+                        </span>
+                    </div>
+
+                    <div>
+                        <strong>
+                            42
+                        </strong>
+
+                        <span>
+                            Preparing
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div class="demand-box">
+
+                    <div class="demand-header">
+
+                        <strong>
+                            Today's Demand
+                        </strong>
+
+                        <span>
+                            Orders
+                        </span>
+
+                    </div>
+
+
+                    <div class="demand-row">
+
+                        <span>
+                            🍛 Veg Thali
+                        </span>
+
+                        <strong>
+                            52
+                        </strong>
+
+                    </div>
+
+                    <div class="demand-row">
+
+                        <span>
+                            🍜 Veg Noodles
+                        </span>
+
+                        <strong>
+                            38
+                        </strong>
+
+                    </div>
+
+                    <div class="demand-row">
+
+                        <span>
+                            🍔 Veg Burger
+                        </span>
+
+                        <strong>
+                            27
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= CTA ================= -->
+
+        <section class="cta-section">
+
+            <div>
+
+                <div class="section-label">
+                    SMARTER LUNCH BREAKS
+                </div>
+
+                <h2>
+                    Ready to skip the queue?
+                </h2>
+
+                <p>
+                    Order before the rush and
+                    enjoy your lunch stress-free.
+                </p>
+
+            </div>
+
+            <button
+                class="primary-btn cta-btn"
+                onclick="goToMenu()">
+
+                Start Ordering →
+
+            </button>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <div class="footer-brand">
+
+            <div class="logo-icon">
+                S
+            </div>
+
+            <strong>
+                SmartCanteen
+            </strong>
+
+        </div>
+
+        <p>
+            Smart food ordering for smarter campuses.
+        </p>
+
+        <span>
+            © 2026 SmartCanteen
+        </span>
+
+    </footer>
+
+
+    <!-- ================= LOGIN MODAL ================= -->
+
+    <div
+        class="modal"
+        id="loginModal">
+
+        <div class="modal-box">
+
+            <button
+                class="close-btn"
+                onclick="closeLogin()">
+
+                ×
+
+            </button>
+
+            <div class="modal-icon">
+                S
+            </div>
+
+            <h2>
+                Welcome Back
+            </h2>
+
+            <p>
+                Login to continue to SmartCanteen.
+            </p>
+
+
+            <label>
+                College Email
+            </label>
+
+            <input
+                type="email"
+                id="loginEmail"
+                placeholder="you@college.edu"
+            >
+
+
+            <label>
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="loginPassword"
+                placeholder="Enter password"
+            >
+
+
+            <button
+                class="primary-btn full-btn"
+                onclick="login()">
+
+                Login
+
+            </button>
+
+
+            <p class="modal-switch">
+
+                Don't have an account?
+
+                <button onclick="openRegister()">
+                    Create one
+                </button>
+
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= REGISTER MODAL ================= -->
+
+    <div
+        class="modal"
+        id="registerModal">
+
+        <div class="modal-box">
+
+            <button
+                class="close-btn"
+                onclick="closeRegister()">
+
+                ×
+
+            </button>
+
+            <div class="modal-icon">
+                S
+            </div>
+
+            <h2>
+                Create Account
+            </h2>
+
+            <p>
+                Create your student account.
+            </p>
+
+
+            <label>
+                Full Name
+            </label>
+
+            <input
+                type="text"
+                id="registerName"
+                placeholder="Your full name"
+            >
+
+
+            <label>
+                College Email
+            </label>
+
+            <input
+                type="email"
+                id="registerEmail"
+                placeholder="you@college.edu"
+            >
+
+
+            <label>
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="registerPassword"
+                placeholder="Create password"
+            >
+
+
+            <button
+                class="primary-btn full-btn"
+                onclick="register()">
+
+                Create Account
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= CART ================= -->
+
+    <div
+        class="cart-button"
+        onclick="openCart()">
+
+        🛒
+
+        <span id="cartCount">
+            0
+        </span>
+
+    </div>
+
+<!-- ================= CART DRAWER ================= -->
+
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+
+<div class="cart-drawer" id="cartDrawer">
+
+    <div class="cart-header">
+
+        <div>
+            <small>YOUR ORDER</small>
+            <h2>My Cart</h2>
+        </div>
+
+        <button
+            class="cart-close"
+            onclick="closeCart()">
+            ×
+        </button>
+
+    </div>
+
+
+    <div
+        class="cart-items"
+        id="cartItems">
+    </div>
+
+
+    <div class="cart-footer">
+
+        <div class="cart-total-row">
+
+            <span>Total</span>
+
+            <strong id="cartTotal">
+                ₹0
+            </strong>
+
+        </div>
+
+        <button
+            class="primary-btn checkout-btn"
+            onclick="proceedToCheckout()">
+
+            Proceed to Checkout →
+
+        </button>
+
+    </div>
+
+</div>
+
+<!-- ================= CHECKOUT MODAL ================= -->
+
+<div class="modal" id="checkoutModal">
+
+    <div class="checkout-box">
+
+        <button
+            class="close-btn"
+            onclick="closeCheckout()">
+            ×
+        </button>
+
+
+        <!-- HEADER -->
+
+        <div class="checkout-header">
+
+            <div class="modal-icon">
+                ✓
+            </div>
+
+            <div>
+                <div class="section-label">
+                    CHECKOUT
+                </div>
+
+                <h2>
+                    Complete Your Order
+                </h2>
+
+                <p>
+                    Choose your pickup slot and confirm your meal.
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- ORDER SUMMARY -->
+
+        <div class="checkout-section">
+
+            <h3>
+                Order Summary
+            </h3>
+
+            <div id="checkoutItems">
+            </div>
+
+        </div>
+
+
+        <!-- STUDENT DETAILS -->
+
+        <div class="checkout-section">
+
+            <h3>
+                Student Details
+            </h3>
+
+
+            <div class="checkout-grid">
+
+                <div>
+
+                    <label>
+                        Student Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="checkoutName"
+                        placeholder="Enter your name"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label>
+                        College ID
+                    </label>
+
+                    <input
+                        type="text"
+                        id="checkoutCollegeId"
+                        placeholder="e.g. PSIT12345"
+                    >
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PICKUP SLOT -->
+
+        <div class="checkout-section">
+
+            <h3>
+                Select Pickup Slot
+            </h3>
+
+            <div class="pickup-slots">
+
+                <button
+                    class="pickup-slot"
+                    onclick="selectPickupSlot(this, '12:45 PM - 1:00 PM')">
+
+                    <strong>
+                        12:45 PM
+                    </strong>
+
+                    <span>
+                        1:00 PM
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="pickup-slot"
+                    onclick="selectPickupSlot(this, '1:00 PM - 1:15 PM')">
+
+                    <strong>
+                        1:00 PM
+                    </strong>
+
+                    <span>
+                        1:15 PM
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="pickup-slot"
+                    onclick="selectPickupSlot(this, '1:15 PM - 1:30 PM')">
+
+                    <strong>
+                        1:15 PM
+                    </strong>
+
+                    <span>
+                        1:30 PM
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="pickup-slot"
+                    onclick="selectPickupSlot(this, '1:30 PM - 1:45 PM')">
+
+                    <strong>
+                        1:30 PM
+                    </strong>
+
+                    <span>
+                        1:45 PM
+                    </span>
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- PAYMENT -->
+
+        <div class="checkout-section">
+
+            <h3>
+                Payment Method
+            </h3>
+
+            <div class="payment-option selected">
+
+                <span class="payment-icon">
+                    💳
+                </span>
+
+                <div>
+
+                    <strong>
+                        Online Payment
+                    </strong>
+
+                    <small>
+                        UPI / Card / Net Banking
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- TOTAL -->
+
+        <div class="checkout-total">
+
+            <span>
+                Total Amount
+            </span>
+
+            <strong id="checkoutTotal">
+                ₹0
+            </strong>
+
+        </div>
+
+
+        <!-- PLACE ORDER -->
+
+        <button
+            class="primary-btn place-order-btn"
+            onclick="placeOrder()">
+
+            Pay & Place Order →
+
+        </button>
+
+    </div>
+
+</div>
+
+<!-- ================= ORDER CONFIRMATION ================= -->
+
+<div class="modal" id="confirmationModal">
+
+    <div class="confirmation-box">
+
+        <div class="success-icon">
+            ✓
+        </div>
+
+        <div class="section-label">
+            ORDER CONFIRMED
+        </div>
+
+        <h2>
+            Your order is on its way! 🎉
+        </h2>
+
+        <p>
+            Your food has been successfully pre-ordered.
+        </p>
+
+
+        <div class="order-id-box">
+
+            <span>
+                ORDER ID
+            </span>
+
+            <strong id="confirmationOrderId">
+                SC-000000
+            </strong>
+
+        </div>
+
+
+        <div class="confirmation-details">
+
+            <div>
+                <span>Pickup Slot</span>
+                <strong id="confirmationPickup">
+                    —
+                </strong>
+            </div>
+
+            <div>
+                <span>Total Paid</span>
+                <strong id="confirmationTotal">
+                    ₹0
+                </strong>
+            </div>
+
+        </div>
+
+
+        <div class="pickup-message">
+
+            🎟️
+
+            <div>
+                <strong>
+                    Show your Order ID at the counter
+                </strong>
+
+                <small>
+                    Your order will be prepared before your pickup slot.
+                </small>
+            </div>
+
+        </div>
+
+
+        <button
+            class="primary-btn full-btn"
+            onclick="closeConfirmation()">
+
+            Done
+
+        </button>
+
+    </div>
+
+</div>
+    <div
+        class="toast"
+        id="toast">
+    </div>
+
+
+    <script src="app.js"></script>
+
+</body>
+
+</html>
